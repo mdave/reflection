@@ -6,20 +6,24 @@
  * Main page. Deals with random pages, sets up the main layout and actually displays images.
  */
 
+// Code for grabbing a random post from the database if necessary; we then redirect to the page.
 if ($_GET['do'] == 'random') {
-	$random_id = $wpdb->get_var( "SELECT ID FROM $wpdb->posts WHERE post_type = 'post' AND post_password = '' AND post_status = 'publish' ORDER BY RAND() LIMIT 1");
-	wp_redirect( get_permalink( $random_id ) );
+	$random_id = $wpdb->get_var("SELECT ID FROM $wpdb->posts WHERE post_type = 'post' AND post_password = '' AND post_status = 'publish' ORDER BY RAND() LIMIT 1");
+	wp_redirect(get_permalink($random_id));
 }
 
+// Include any YAPB filters that we need.
 include(TEMPLATEPATH . '/yapb_filter.php');
 
+// Grab header.
 get_header();
 
+// Begin post loop.
 if (have_posts()) : while (have_posts()) : the_post(); 
 
-$next_post = get_next_post() ? get_next_post()->ID : 0;
-$prev_post = get_previous_post() ? get_previous_post()->ID : 0;
-
+// Grab next/previous post IDs if they exist. Odd syntax is hack for PHP4.
+$next_post = isobject($npobj = get_next_post()) ? $npobj->ID : 0;
+$prev_post = isobject($ppobj = get_previous_post()) ? $ppobj->ID : 0;
 $next_post_perm = get_permalink($next_post);
 $prev_post_perm = get_permalink($prev_post);
 
@@ -57,7 +61,7 @@ $prev_post_perm = get_permalink($prev_post);
           <?echo get_exif();?>
         </div>
       </div>
-      <?php if (is_home()): ?>
+      <?php if (is_home()): // Only enable overlays for homepage navigation. ?>
         <div id="info_holder" class="overlay" style="bottom:0;left:0;right:0">
           <div id="info_panel">
             <?php the_content('Read more...'); ?>

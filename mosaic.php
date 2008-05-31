@@ -5,22 +5,27 @@
  * Description: Page for creating mosaic of all images posted on the site.
  */
 
+// Grab header
 get_header();
 
+// Begin The Loop.
 if (have_posts()) : while (have_posts()) : the_post();
 
 ?>
 
 <div id="pagecontent">
   <h2><?the_title();?></h2>
-  <?the_content('');?>
+  <?php the_content(''); ?>
 <?php
 
+// Grab all posts from the database in descending order.
 $posts = get_posts('numberposts=-1&order=DESC');
 
+// Variable to store the current year.
 $postyear = 0;
 
 foreach ($posts as $post) {
+	// Grab the year this photo was taken and change postyear if necessary.
 	$this_postyear = intval(substr($post->post_date, 0, 4));
 	
 	if ($this_postyear != $postyear) {
@@ -28,7 +33,11 @@ foreach ($posts as $post) {
 		echo '<h2 class="mosaicheader">'.$postyear.'</h2>';
 	}
 	
+	// Grab YapbImage from the database depending upon the post ID.
 	$image = YapbImage::getInstanceFromDb($post->ID);
+	
+	if (!$image)
+		continue;
 	
 	if ($image->width > $image->height) {
 		$thumb_param = array(

@@ -7,6 +7,7 @@
  * pages and also contact e-mail.
  */
 
+// Grab header.
 get_header();
 
 ?>
@@ -24,6 +25,7 @@ get_header();
 
 <?
 
+// Grab footer.
 get_footer();
 
 ?>
