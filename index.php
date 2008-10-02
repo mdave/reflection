@@ -22,8 +22,8 @@ get_header();
 if (have_posts()) : while (have_posts()) : the_post(); 
 
 // Grab next/previous post IDs if they exist. Odd syntax is hack for PHP4.
-$next_post = isobject($npobj = get_next_post()) ? $npobj->ID : 0;
-$prev_post = isobject($ppobj = get_previous_post()) ? $ppobj->ID : 0;
+$next_post = is_object($npobj = get_next_post()) ? $npobj->ID : 0;
+$prev_post = is_object($ppobj = get_previous_post()) ? $ppobj->ID : 0;
 $next_post_perm = get_permalink($next_post);
 $prev_post_perm = get_permalink($prev_post);
 

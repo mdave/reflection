@@ -1,5 +1,6 @@
 <?
 
+$pfix = "reflection_";
 $im_dim = $post->image->width > $post->image->height ? 800 : 450;
 
 function get_thumbnail($removeamps=false)
@@ -30,13 +31,23 @@ function get_exif()
 
 function yapb_get_exif_filter($exif) 
 {
-	/* Any exif filtering gets done in this function. Modify if you want it. */
+	global $pfix;
 	
-	return $exif;
+	if (!get_option($pfix.'exiffilter'))
+		return;
+	
+	$maparray = get_option($pfix.'exiftags');
+	$mapped = array();
+	
+	foreach ($maparray as $t => $m) {
+		if (!array_key_exists($t, $exif) || !$m[0])
+			continue;
+		$mapped[$m[1]] = $exif[$t];
+	}
+	
+	return $mapped;
 }
 
-// Uncomment the following line to enable EXIF filtering.
-
-//add_filter('yapb_get_exif', 'yapb_get_exif_filter');
+add_filter('yapb_get_exif', 'yapb_get_exif_filter');
 
 ?>
