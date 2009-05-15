@@ -81,8 +81,7 @@ $options = array(
 		'default' => 0,
 		'values'  => array(
 			'0' => 'None',
-			'1' => 'Tags',
-			'2' => 'Categories'
+			'1' => 'Tags'
 		)
 	),
 	'submitted'  => array(
@@ -261,7 +260,7 @@ function reflection_admin() {
 			<th scope="row" valign="top">Taxonomy display</th>
 			<td>
 				<?php field_print('archivedisp');?>
-				<span class="setting-description">The archive page is capable of displaying categories or tags as well as the date.</span>
+				<span class="setting-description">If you want to display photos by tag name as well as by date, then select the 'tags' option.</span>
 			</td>
 		</tr>
 		<tr>
