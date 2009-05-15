@@ -3,7 +3,7 @@ var Mosaic = {
 		var images = $$('img.mosaic');
 		
 		images.each(function(el,i){
-			var fx = new Fx.Style(el, 'opacity', {duration:200, wait:false});
+			var fx = new Fx.Tween(el, {property: 'opacity', duration:200, wait:false});
 			fx.set(0.75);
 			el.addEvent('mouseenter', function(){
 				fx.start(1);

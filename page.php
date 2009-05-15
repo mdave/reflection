@@ -1,9 +1,8 @@
 <?php
-
-/*
- * page.php
- * --------
- * Standard page template. Really simple.
+/**
+ * Standard page template.
+ *
+ * @package Reflection
  */
 
 get_header();
