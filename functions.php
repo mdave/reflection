@@ -19,7 +19,7 @@ $pfix = "reflection_";
  *
  * @global string $vnum
  */
-$vnum = "1.1";
+$vnum = "1.1.1";
 
 /**
  * Array of options we use in reflection.
