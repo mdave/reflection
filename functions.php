@@ -106,6 +106,44 @@ $values = array();
  */
 $updateflag = false;
 
+/**
+ * For some reason, PHP doesn't include the json_encode function
+ * before PHP5.2, so this is a replacement for compatibility reasons.
+ * Taken from php.net.
+ */
+if (!function_exists('json_encode')) {
+	function json_encode($a=false) {
+		if (is_null($a)) return 'null';
+		if ($a === false) return 'false';
+		if ($a === true) return 'true';
+		if (is_scalar($a)) {
+			if (is_float($a)) {
+				// Always use "." for floats.
+				return floatval(str_replace(",", ".", strval($a)));
+			}
+
+			if (is_string($a)) {
+				static $jsonReplaces = array(array("\\", "/", "\n", "\t", "\r", "\b", "\f", '"'), array('\\\\', '\\/', '\\n', '\\t', '\\r', '\\b', '\\f', '\"'));
+				return '"' . str_replace($jsonReplaces[0], $jsonReplaces[1], $a) . '"';
+			} else return $a;
+		}
+		$isList = true;
+		for ($i = 0, reset($a); $i < count($a); $i++, next($a)) {
+			if (key($a) !== $i) {
+				$isList = false;
+				break;
+			}
+		}
+		$result = array();
+		if ($isList) {
+			foreach ($a as $v) $result[] = json_encode($v);
+			return '[' . join(',', $result) . ']';
+		} else {
+			foreach ($a as $k => $v) $result[] = json_encode($k).':'.json_encode($v);
+			return '{' . join(',', $result) . '}';
+		}
+	}
+}
 
 /**
  * Generates a square thumbnail of an image.
@@ -311,8 +349,14 @@ function get_thumbnail($removeamps=false)
 function im_dim()
 {
 	global $post;
-	
-	return $post->image->width > $post->image->height ? get_opt_or_default('widthland') : get_opt_or_default('widthport');
+
+	if ($post->image->width > $post->image->height) {
+		$wl = get_opt_or_default('widthland');
+		return $post->image->width > $wl ? $wl : $post->image->width;
+	} else {
+		$wp = get_opt_or_default('widthport');
+		return $post->image->height > $wp ? $wp : $post->image->width;
+	}
 }
 
 /**
