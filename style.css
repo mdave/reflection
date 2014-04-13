@@ -427,13 +427,15 @@ border-bottom: 2px solid white
 }
 
 #tagContainer {
-    padding: 5px 5px 5px 8px;   
+    padding: 5px 5px 5px 8px;
+    overflow: hidden;
 }
 
 #tagPics {
 background:#313131;
 position:relative;
 line-height:0;
+overflow: hidden;
 height:1%; /* Ugly hack for IE */
 }
 

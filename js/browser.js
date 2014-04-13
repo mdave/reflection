@@ -136,7 +136,7 @@ var Browse = {
       });
     }
     
-    $('tagContainer').setStyles({'height': 'auto', 'overflow': 'auto'});
+    $('tagContainer').setStyles({'height': 'auto', 'overflow': 'hidden'});
 
     // Change height whilst fading out progress indicator, then fade in images.
     this.progFx.start({
