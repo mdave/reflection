@@ -19,7 +19,7 @@ $pfix = "reflection_";
  *
  * @global string $vnum
  */
-$vnum = "1.1.1";
+$vnum = "1.1.2";
 
 /**
  * Array of options we use in reflection.
@@ -366,7 +366,7 @@ function get_exif()
 {
 	global $post;
 	
-	$exif_info = yapb_get_exif();
+	$exif_info = yapb_get_exif(true);
 	
 	if (empty($exif_info))
 		return "No EXIF information available.";
