@@ -94,6 +94,12 @@ take a while to generate the thumbnails.
 Changes
 -------
 
+**v1.1.2**
+
+- Minor release to confirm I'm still alive and update to GitHub address.
+- Fix some browser CSS.
+- Add photoshop template for logo.
+
 **v1.1.1**
 
 - Fixed bug where image dimensions less than the desired width would cause a
